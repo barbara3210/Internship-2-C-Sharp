@@ -11,8 +11,12 @@ var racuni = new List<Tuple<int, DateTime, List<Tuple<string, int, decimal>>>>()
 var radnici = new Dictionary<string, DateTime>();
 const string password = "barbara3210";
 
+Inicijalizacija(artikli);
+InicijalizacijaRadnici(radnici);
+
 while (true)
 {
+
     Console.Write(
        "--------------------------\n" +
       "1- Artikli\n" +
@@ -637,7 +641,7 @@ static void BrisanjeArtPoImenu(string ime, List<Tuple<string, decimal, DateTime,
         foreach (var a in listaAr)
         {
 
-            if (a.Item1 == ime) { Console.WriteLine($"Izbrisano: {a.Item1}"); }
+            if (a.Item1.ToLower() == ime.ToLower()) { Console.WriteLine($"Izbrisano: {a.Item1}"); }
             else { upList.Add(a); }
         }
         listaAr.Clear();
@@ -782,7 +786,7 @@ static void UpdateCijena(List<Tuple<string, decimal, DateTime, int>> listaAr, st
 
     foreach (var a in listaAr)
     {
-        if (a.Item1 == odabraniArt)
+        if (a.Item1.ToLower() == odabraniArt.ToLower())
         {
             var updatedTuple = new Tuple<string, decimal, DateTime, int>(a.Item1, upArtikal, a.Item3, a.Item4);
             updatedLista.Add(updatedTuple);
@@ -802,7 +806,7 @@ static void UpdateDatum(List<Tuple<string, decimal, DateTime, int>> listaAr, str
 
     foreach (var a in listaAr)
     {
-        if (a.Item1 == odabraniArt)
+        if (a.Item1.ToLower() == odabraniArt.ToLower())
         {
             var updatedTuple = new Tuple<string, decimal, DateTime, int>(a.Item1, a.Item2, upArtikal, a.Item4);
             updatedLista.Add(updatedTuple);
@@ -822,7 +826,7 @@ static void UpdateKolicina(List<Tuple<string, decimal, DateTime, int>> listaAr, 
 
     foreach (var a in listaAr)
     {
-        if (a.Item1 == odabraniArt)
+        if (a.Item1.ToLower() == odabraniArt.ToLower())
         {
             var updatedTuple = new Tuple<string, decimal, DateTime, int>(a.Item1, a.Item2, a.Item3, upArtikal);
             updatedLista.Add(updatedTuple);
@@ -838,12 +842,12 @@ static void BrisiRadnika(Dictionary<string,DateTime> dRadnici,string ime)
 {
     foreach (var d in dRadnici)
     {
-        if (d.Key == ime)
+        if (d.Key.ToLower() == ime.ToLower())
         {
             dRadnici.Remove(d.Key);
             Console.WriteLine("Izbrisano");
         }
-        else { Console.WriteLine("Unos ne postoji"); }
+        
     }
 }
 static void BrisiRadnika65(Dictionary<string, DateTime> dRadnici)
@@ -971,4 +975,22 @@ static decimal IzracunajUkupnuCijenu(List<Tuple<string, int, decimal>> listaRacu
     }
 
     return ukupno;
+}
+
+static void Inicijalizacija( List<Tuple<string, decimal, DateTime, int>> listaAr)
+{
+    listaAr.Add(new Tuple<string, decimal, DateTime, int>("salata", 0.33m, new DateTime(2023, 3, 3), 9));
+    listaAr.Add(new Tuple<string, decimal, DateTime, int>("limun", 0.79m, new DateTime(2024, 3, 3), 20));
+    listaAr.Add(new Tuple<string, decimal, DateTime, int>("badem", 0.33m, new DateTime(2024, 9, 8), 11));
+    listaAr.Add(new Tuple<string, decimal, DateTime, int>("grah", 0.99m, new DateTime(2024, 3, 6), 2));
+}
+
+static void InicijalizacijaRadnici(Dictionary<string, DateTime> dRadnici)
+{
+    dRadnici.Add("Mate Matic", new DateTime(2000, 8, 3));
+    dRadnici.Add("Ante Matic", new DateTime(1998, 5, 25));
+    dRadnici.Add("Ana Bebic", new DateTime(1950, 8, 3));
+    dRadnici.Add("Jure Juric", new DateTime(1955, 1, 1));
+
+
 }
